@@ -14,8 +14,22 @@ class App extends React.Component {
   numClick(e){
     let newDisplay = this.state.currentDisplay.concat(`${e.target.innerHTML}`)
     this.setState({currentDisplay: newDisplay,})
-
   }
+
+  backspaceClick(){
+    let back = this.state.currentDisplay.slice(0, -1)
+    this.setState({
+      currentDisplay: back,
+    })
+  }
+
+  clear(){
+    this.setState({
+      currentDisplay: "",
+    })
+  }
+
+
   render(){
     return (
       <div className="App">
@@ -23,7 +37,10 @@ class App extends React.Component {
           <div className="display">
             {this.state.currentDisplay}
           </div>
-        < CalcKeys numClick={ (e) =>{this.numClick(e)}} />
+        < CalcKeys numClick={ (e) =>{this.numClick(e)}}
+                    backspaceClick={ () => {this.backspaceClick()}}
+                    clear={ () => {this.clear()}}
+        />
         </div>
       </div>
     );
