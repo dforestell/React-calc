@@ -13,8 +13,16 @@ class App extends React.Component {
   }
 
   numClick(e){
-    let newDisplay = this.state.currentDisplay.concat(`${e.target.innerHTML}`)
-    this.setState({currentDisplay: newDisplay,})
+    const {currentDisplay, currentProblem} = this.state
+    const last = currentProblem.slice(currentProblem.length -1 , currentProblem.length);
+    console.log(last)
+    if (last === '%' || last === '/' || last === '*' || last === '+' || last === '-'){
+      this.setState({currentDisplay: e.target.innerHTML})
+    }else{
+      console.log(typeof(currentDisplay))
+      let newDisplay = currentDisplay.concat(`${e.target.innerHTML}`)
+      this.setState({currentDisplay: newDisplay,})
+    }
   }
 
   backspaceClick(){
@@ -30,20 +38,39 @@ class App extends React.Component {
     })
   }
 
+  clearProblem(){
+    this.setState({
+      currentDisplay: "",
+      currentProblem: "",
+    })
+  }
+
   mathOperatorClick(e){
     let {currentDisplay, currentProblem} = this.state
+    let operator = e.target.innerHTML
     if (currentDisplay !== ""){
       if (currentProblem === ""){
-        let operator = e.target.innerHTML
         let addToProblem = currentProblem.concat(currentDisplay, operator);
 
         this.setState({
           currentProblem: addToProblem,
         }, this.clearDisplay());
       } else{
-        console.log(" i have other math to do first")
+        this.completeMath(operator)
+
       }
     }
+  }
+
+  completeMath(operator){
+    const {currentDisplay, currentProblem} = this.state 
+   let problem = currentProblem.concat(currentDisplay)
+   let answer = eval(problem)
+   console.log(answer)
+   this.setState({ 
+     currentDisplay: ""+answer,
+     currentProblem: answer+ `${operator}`,
+    })
   }
 
 
@@ -56,8 +83,9 @@ class App extends React.Component {
           </div>
         < CalcKeys numClick={ (e) =>{this.numClick(e)}}
                     backspaceClick={ () => {this.backspaceClick()}}
-                    clearDisplay={ () => {this.clearDisplay()}}
+                    clearProblem={ () => {this.clearProblem()}}
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
+                    completeMath={() => {this.completeMath()}}
         />
         </div>
       </div>

@@ -2,10 +2,10 @@ import React from 'react';
 
 class CalcKeys extends React.Component{
     render(){
-        const { numClick, backspaceClick, clearDisplay, mathOperatorClick} = this.props
+        const { numClick, backspaceClick, clearProblem, mathOperatorClick, completeMath} = this.props
         return(
             <div className="key-container">
-                <div className="calc-key" onClick={() => {clearDisplay()}}>C</div>
+                <div className="calc-key" onClick={() => {clearProblem()}}>C</div>
                 <div className="calc-key" onClick={() => {backspaceClick()}}>CE</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>(</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>)</div>
@@ -23,7 +23,7 @@ class CalcKeys extends React.Component{
                 <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>*</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>.</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>0</div>
-                <div className="calc-key">=</div>
+                <div className="calc-key" onClick={ () => {completeMath()}}>=</div>
                 <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>/</div>
             </div>
         )
