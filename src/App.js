@@ -68,8 +68,8 @@ class App extends React.Component {
    let answer = eval(problem)
    console.log(answer)
    this.setState({ 
-     currentDisplay: ""+answer,
-     currentProblem: answer+ `${operator}`,
+     currentDisplay: `${answer}`,
+     currentProblem: answer + `${operator}`,
     })
   }
 
