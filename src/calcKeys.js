@@ -7,8 +7,8 @@ class CalcKeys extends React.Component{
             <div className="key-container">
                 <div className="calc-key" onClick={() => {clearProblem()}}>C</div>
                 <div className="calc-key" onClick={() => {backspaceClick()}}>CE</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>(</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>)</div>
+                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>%</div>
+                <div className="calc-key" >√</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>1</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>2</div>
                 <div className="calc-key" onClick={(e) => {numClick(e)}}>3</div>
