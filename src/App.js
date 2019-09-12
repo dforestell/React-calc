@@ -8,6 +8,7 @@ class App extends React.Component {
 
     this.state = {
       currentDisplay: "",
+      currentProblem: "",
     }
   }
 
@@ -23,10 +24,26 @@ class App extends React.Component {
     })
   }
 
-  clear(){
+  clearDisplay(){
     this.setState({
       currentDisplay: "",
     })
+  }
+
+  mathOperatorClick(e){
+    let {currentDisplay, currentProblem} = this.state
+    if (currentDisplay !== ""){
+      if (currentProblem === ""){
+        let operator = e.target.innerHTML
+        let addToProblem = currentProblem.concat(currentDisplay, operator);
+
+        this.setState({
+          currentProblem: addToProblem,
+        }, this.clearDisplay());
+      } else{
+        console.log(" i have other math to do first")
+      }
+    }
   }
 
 
@@ -39,7 +56,8 @@ class App extends React.Component {
           </div>
         < CalcKeys numClick={ (e) =>{this.numClick(e)}}
                     backspaceClick={ () => {this.backspaceClick()}}
-                    clear={ () => {this.clear()}}
+                    clearDisplay={ () => {this.clearDisplay()}}
+                    mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
         />
         </div>
       </div>
