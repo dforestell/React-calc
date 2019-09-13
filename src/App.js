@@ -9,20 +9,21 @@ class App extends React.Component {
     this.state = {
       currentDisplay: "",
       currentProblem: "",
+      shouldAppendDisplay: true,
     }
   }
 
   numClick(e){
-    const {currentDisplay, currentProblem} = this.state
-    const last = currentProblem.slice(currentProblem.length -1 , currentProblem.length);
-    console.log(last)
-    if (last === '%' || last === '/' || last === '*' || last === '+' || last === '-'){
-      this.setState({currentDisplay: e.target.innerHTML})
-    }else{
-      console.log(typeof(currentDisplay))
-      let newDisplay = currentDisplay.concat(`${e.target.innerHTML}`)
-      this.setState({currentDisplay: newDisplay,})
-    }
+    const {currentDisplay, shouldAppendDisplay} = this.state
+      if (shouldAppendDisplay){
+        let newDisplay = currentDisplay.concat(`${e.target.innerHTML}`)
+        this.setState({currentDisplay: newDisplay,})
+      }else{
+        this.setState({ 
+          currentDisplay: `${e.target.innerHTML}`,
+          shouldAppendDisplay: true,
+      })
+      }
   }
 
   backspaceClick(){
@@ -46,6 +47,7 @@ class App extends React.Component {
   }
 
   mathOperatorClick(e){
+    this.setState({ currentDisplay: "" })
     let {currentDisplay, currentProblem} = this.state
     let operator = e.target.innerHTML
     if (currentDisplay !== ""){
@@ -57,20 +59,36 @@ class App extends React.Component {
         }, this.clearDisplay());
       } else{
         this.completeMath(operator)
-
       }
     }
   }
 
   completeMath(operator){
-    const {currentDisplay, currentProblem} = this.state 
+   const {currentDisplay, currentProblem} = this.state 
    let problem = currentProblem.concat(currentDisplay)
    let answer = eval(problem)
-   console.log(answer)
    this.setState({ 
      currentDisplay: `${answer}`,
      currentProblem: answer + `${operator}`,
+     shouldAppendDisplay: false,
     })
+  }
+
+  equalClick(){
+   const {currentDisplay, currentProblem} = this.state 
+   let problem = currentProblem.concat(currentDisplay)
+   let answer = eval(problem)
+   this.setState({ 
+     currentDisplay: `${answer}`,
+     currentProblem: '',
+     shouldAppendDisplay: false,
+    })
+  }
+
+  checkLastCharForMath(){
+    const { currentProblem } = this.state
+    const last = currentProblem.slice(currentProblem.length -1 , currentProblem.length);
+    return (last === '%' || last === '/' || last === '*' || last === '+' || last === '-')
   }
 
 
@@ -85,7 +103,7 @@ class App extends React.Component {
                     backspaceClick={ () => {this.backspaceClick()}}
                     clearProblem={ () => {this.clearProblem()}}
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
-                    completeMath={() => {this.completeMath()}}
+                    equalClick={() => {this.equalClick()}}
         />
         </div>
       </div>
