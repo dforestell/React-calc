@@ -1,5 +1,6 @@
 import React from 'react';
 import CalcKeys from './calcKeys';
+import CalcDisplay from './calcDisplay';
 import './App.css';
 
 class App extends React.Component {
@@ -84,21 +85,14 @@ class App extends React.Component {
     })
   }
 
-  checkLastCharForMath(){
-    const { currentProblem } = this.state
-    const last = currentProblem.slice(currentProblem.length -1 , currentProblem.length);
-    return (last === '%' || last === '/' || last === '*' || last === '+' || last === '-')
-  }
-
 
   render(){
+    const { currentDisplay } = this.state
     return (
       <div className="App">
         <div className="calculator-container">
-          <div className="display">
-            {this.state.currentDisplay}
-          </div>
-        < CalcKeys numClick={ (e) =>{this.numClick(e)}}
+          <CalcDisplay currentDisplay={currentDisplay}/>
+          < CalcKeys numClick={ (e) =>{this.numClick(e)}}
                     backspaceClick={ () => {this.backspaceClick()}}
                     clearProblem={ () => {this.clearProblem()}}
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
