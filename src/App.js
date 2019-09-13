@@ -47,22 +47,21 @@ class App extends React.Component {
   }
 
   mathOperatorClick(e){
-    this.setState({ currentDisplay: "" })
+  
     let {currentDisplay, currentProblem} = this.state
     let operator = e.target.innerHTML
-    if (currentDisplay !== ""){
       if (currentProblem === ""){
         let addToProblem = currentProblem.concat(currentDisplay, operator);
-
         this.setState({
           currentProblem: addToProblem,
-        }, this.clearDisplay());
+          shouldAppendDisplay: false,
+        });
       } else{
         this.completeMath(operator)
       }
-    }
   }
 
+  
   completeMath(operator){
    const {currentDisplay, currentProblem} = this.state 
    let problem = currentProblem.concat(currentDisplay)
