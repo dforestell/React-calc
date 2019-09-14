@@ -11,7 +11,6 @@ body{
 
 .calculator-container{
   display: inline-block;
-  width: 66%;
   border: .25em solid black;
   margin-top: 2em;
   margin-bottom: 2em;
@@ -34,10 +33,13 @@ body{
   background-color: black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: .25em;
+  /* grid-gap: .25em; */
   border-top: .25em solid black;
 }
 
+.active.calc-key{
+  opacity: .66;
+}
 .calc-key{
   font-size: 2em;
   background-color: darkred;

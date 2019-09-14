@@ -11,6 +11,7 @@ class App extends React.Component {
       currentDisplay: "",
       currentProblem: "",
       shouldAppendDisplay: true,
+      activeMath: "",
     }
   }
 
@@ -54,6 +55,7 @@ class App extends React.Component {
         if (currentProblem === "" && currentDisplay){
           let addToProblem = currentProblem.concat(currentDisplay, operator);
           this.setState({
+            activeMath: `${operator}`,
             currentProblem: addToProblem,
             shouldAppendDisplay: false,
           });
@@ -72,10 +74,12 @@ class App extends React.Component {
      currentDisplay: `${answer}`,
      currentProblem: answer + `${operator}`,
      shouldAppendDisplay: false,
+     activeMath: `${operator}`,
     })
   }
 
   equalClick(){
+   this.setState({ activeMath: "" })
    const {currentDisplay, currentProblem} = this.state 
    const problem = currentProblem.concat(currentDisplay)
    const answer = eval(problem)
@@ -87,6 +91,7 @@ class App extends React.Component {
   }
 
   squareRootClick(){
+    this.setState({ activeMath: "" })
     const {currentDisplay, currentProblem} = this.state 
     if (currentProblem !== ""){
       const problem = currentProblem.concat(currentDisplay)
@@ -106,7 +111,7 @@ class App extends React.Component {
   }
 
   render(){
-    const { currentDisplay } = this.state
+    const { currentDisplay, activeMath } = this.state
     return (
       <div className="App">
         <div className="calculator-container">
@@ -117,6 +122,7 @@ class App extends React.Component {
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
                     equalClick={() => {this.equalClick()}}
                     squareRootClick={() => {this.squareRootClick()}}
+                    activeMath={activeMath}
         />
         </div>
       </div>
