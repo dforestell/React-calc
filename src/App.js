@@ -24,6 +24,7 @@ class App extends React.Component {
         this.setState({ 
           currentDisplay: `${e.target.innerHTML}`,
           shouldAppendDisplay: true,
+          activeMath: "",
       })
       }
   }
