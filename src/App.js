@@ -35,33 +35,32 @@ class App extends React.Component {
     })
   }
 
-  clearDisplay(){
-    this.setState({
-      currentDisplay: "",
-    })
-  }
 
   clearProblem(){
     this.setState({
       currentDisplay: "",
       currentProblem: "",
+      shouldAppendDisplay: true,
+      activeMath: ""
     })
   }
 
   mathOperatorClick(e){
-    let {currentDisplay, currentProblem} = this.state
-    if (currentDisplay !== ""){
-      let operator = e.target.innerHTML
-        if (currentProblem === "" && currentDisplay){
-          let addToProblem = currentProblem.concat(currentDisplay, operator);
-          this.setState({
-            activeMath: `${operator}`,
-            currentProblem: addToProblem,
-            shouldAppendDisplay: false,
-          });
-        } else{
-          this.completeMath(operator)
-        }
+    let {currentDisplay, currentProblem, activeMath} = this.state
+    if  (activeMath === ""){
+      if (currentDisplay !==  "" ){
+        let operator = e.target.innerHTML
+          if (currentProblem === "" && currentDisplay){
+            let addToProblem = currentProblem.concat(currentDisplay, operator);
+            this.setState({
+              activeMath: `${operator}`,
+              currentProblem: addToProblem,
+              shouldAppendDisplay: false,
+            });
+          } else{
+            this.completeMath(operator)
+          }
+      }
     }
   }
 
