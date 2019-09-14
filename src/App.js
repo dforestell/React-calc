@@ -109,12 +109,17 @@ class App extends React.Component {
     }
   }
 
+  sliceDisplay(display){
+    return display.slice(0,16)
+  }
+
+
   render(){
     const { currentDisplay, activeMath } = this.state
     return (
       <div className="App">
         <div className="calculator-container">
-          <CalcDisplay currentDisplay={currentDisplay}/>
+          <CalcDisplay currentDisplay={this.sliceDisplay(currentDisplay)}/>
           < CalcKeys numClick={ (e) =>{this.numClick(e)}}
                     backspaceClick={ () => {this.backspaceClick()}}
                     clearProblem={ () => {this.clearProblem()}}
