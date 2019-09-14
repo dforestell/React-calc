@@ -1,50 +1,68 @@
+body{
+  background-image: url('./math-emporium.jpg')
+}
+
 .App {
+  width: 100%;
+  height: 100%;
   text-align: center;
+
 }
 
 .calculator-container{
   display: inline-block;
   width: 66%;
-  height: 66%;
-  border: 4px solid black;
+  border: .25em solid black;
   margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .display{
   text-align: right;
-  margin-top: 2em;
+
   padding-right: .5em;
+  padding-top: 1em;
   height: 2em;
+  font-size: 2.5em;
+  background-color: grey;
+  overflow: hidden;
 }
 
 .key-container{
+  width: 100%;
   color: white;
   background-color: black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 4px;
-  align-items: center;
-  border-top: 4px solid black;
+  grid-gap: .25em;
+  border-top: .25em solid black;
 }
 
 .calc-key{
   font-size: 2em;
   background-color: darkred;
   vertical-align: center;
-  padding: 2em;
+  padding: 1em;
   text-align: center;
 }
 
-@media(max-width: 980px){
+@media(max-width: 900px){
   .calc-key{ font-size: 1.5em; }
 }
-@media (max-width: 730px){
+@media (max-width: 720px){
   .calc-key{ font-size: 1em; }
   .key-container{ 
-    grid-gap: 2px;
     border-top: 2px solid black;
+    grid-gap: .125em;
    }
-   .calculator-container{ border: 2px solid black; }
+   .display{
+    padding-top: .5em;
+    padding-right: .5em;
+    height: 1em;
+    font-size: 2.5em;
+    background-color: grey;
+  }
+   .calculator-container{ border: .125em solid black; }
 }
 
 @media (max-width: 500px){

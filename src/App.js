@@ -1,5 +1,6 @@
 import React from 'react';
 import CalcKeys from './calcKeys';
+import CalcDisplay from './calcDisplay';
 import './App.css';
 
 class App extends React.Component {
@@ -9,20 +10,21 @@ class App extends React.Component {
     this.state = {
       currentDisplay: "",
       currentProblem: "",
+      shouldAppendDisplay: true,
     }
   }
 
   numClick(e){
-    const {currentDisplay, currentProblem} = this.state
-    const last = currentProblem.slice(currentProblem.length -1 , currentProblem.length);
-    console.log(last)
-    if (last === '%' || last === '/' || last === '*' || last === '+' || last === '-'){
-      this.setState({currentDisplay: e.target.innerHTML})
-    }else{
-      console.log(typeof(currentDisplay))
-      let newDisplay = currentDisplay.concat(`${e.target.innerHTML}`)
-      this.setState({currentDisplay: newDisplay,})
-    }
+    const {currentDisplay, shouldAppendDisplay} = this.state
+      if (shouldAppendDisplay){
+        let newDisplay = currentDisplay.concat(`${e.target.innerHTML}`)
+        this.setState({currentDisplay: newDisplay,})
+      }else{
+        this.setState({ 
+          currentDisplay: `${e.target.innerHTML}`,
+          shouldAppendDisplay: true,
+      })
+      }
   }
 
   backspaceClick(){
@@ -47,45 +49,74 @@ class App extends React.Component {
 
   mathOperatorClick(e){
     let {currentDisplay, currentProblem} = this.state
-    let operator = e.target.innerHTML
     if (currentDisplay !== ""){
-      if (currentProblem === ""){
-        let addToProblem = currentProblem.concat(currentDisplay, operator);
-
-        this.setState({
-          currentProblem: addToProblem,
-        }, this.clearDisplay());
-      } else{
-        this.completeMath(operator)
-
-      }
+      let operator = e.target.innerHTML
+        if (currentProblem === "" && currentDisplay){
+          let addToProblem = currentProblem.concat(currentDisplay, operator);
+          this.setState({
+            currentProblem: addToProblem,
+            shouldAppendDisplay: false,
+          });
+        } else{
+          this.completeMath(operator)
+        }
     }
   }
 
+  
   completeMath(operator){
-    const {currentDisplay, currentProblem} = this.state 
-   let problem = currentProblem.concat(currentDisplay)
-   let answer = eval(problem)
-   console.log(answer)
+   const {currentDisplay, currentProblem} = this.state 
+   const problem = currentProblem.concat(currentDisplay)
+   const answer = eval(problem)
    this.setState({ 
      currentDisplay: `${answer}`,
      currentProblem: answer + `${operator}`,
+     shouldAppendDisplay: false,
     })
   }
 
+  equalClick(){
+   const {currentDisplay, currentProblem} = this.state 
+   const problem = currentProblem.concat(currentDisplay)
+   const answer = eval(problem)
+   this.setState({ 
+     currentDisplay: `${answer}`,
+     currentProblem: '',
+     shouldAppendDisplay: false,
+    })
+  }
+
+  squareRootClick(){
+    const {currentDisplay, currentProblem} = this.state 
+    if (currentProblem !== ""){
+      const problem = currentProblem.concat(currentDisplay)
+      const answer = eval(problem)
+      const sqRoot = Math.sqrt(answer)
+      this.setState({ 
+        currentDisplay: sqRoot,
+        currentProblem: "",
+      })
+    } else{
+      const sqRoot = Math.sqrt(currentDisplay)
+      this.setState({ 
+        currentDisplay: sqRoot,
+        currentProblem: "",
+      })
+    }
+  }
 
   render(){
+    const { currentDisplay } = this.state
     return (
       <div className="App">
         <div className="calculator-container">
-          <div className="display">
-            {this.state.currentDisplay}
-          </div>
-        < CalcKeys numClick={ (e) =>{this.numClick(e)}}
+          <CalcDisplay currentDisplay={currentDisplay}/>
+          < CalcKeys numClick={ (e) =>{this.numClick(e)}}
                     backspaceClick={ () => {this.backspaceClick()}}
                     clearProblem={ () => {this.clearProblem()}}
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
-                    completeMath={() => {this.completeMath()}}
+                    equalClick={() => {this.equalClick()}}
+                    squareRootClick={() => {this.squareRootClick()}}
         />
         </div>
       </div>
