@@ -48,25 +48,26 @@ class App extends React.Component {
   }
 
   mathOperatorClick(e){
-  
     let {currentDisplay, currentProblem} = this.state
-    let operator = e.target.innerHTML
-      if (currentProblem === ""){
-        let addToProblem = currentProblem.concat(currentDisplay, operator);
-        this.setState({
-          currentProblem: addToProblem,
-          shouldAppendDisplay: false,
-        });
-      } else{
-        this.completeMath(operator)
-      }
+    if (currentDisplay !== ""){
+      let operator = e.target.innerHTML
+        if (currentProblem === "" && currentDisplay){
+          let addToProblem = currentProblem.concat(currentDisplay, operator);
+          this.setState({
+            currentProblem: addToProblem,
+            shouldAppendDisplay: false,
+          });
+        } else{
+          this.completeMath(operator)
+        }
+    }
   }
 
   
   completeMath(operator){
    const {currentDisplay, currentProblem} = this.state 
-   let problem = currentProblem.concat(currentDisplay)
-   let answer = eval(problem)
+   const problem = currentProblem.concat(currentDisplay)
+   const answer = eval(problem)
    this.setState({ 
      currentDisplay: `${answer}`,
      currentProblem: answer + `${operator}`,
@@ -76,8 +77,8 @@ class App extends React.Component {
 
   equalClick(){
    const {currentDisplay, currentProblem} = this.state 
-   let problem = currentProblem.concat(currentDisplay)
-   let answer = eval(problem)
+   const problem = currentProblem.concat(currentDisplay)
+   const answer = eval(problem)
    this.setState({ 
      currentDisplay: `${answer}`,
      currentProblem: '',
@@ -85,6 +86,24 @@ class App extends React.Component {
     })
   }
 
+  squareRootClick(){
+    const {currentDisplay, currentProblem} = this.state 
+    if (currentProblem !== ""){
+      const problem = currentProblem.concat(currentDisplay)
+      const answer = eval(problem)
+      const sqRoot = Math.sqrt(answer)
+      this.setState({ 
+        currentDisplay: sqRoot,
+        currentProblem: "",
+      })
+    } else{
+      const sqRoot = Math.sqrt(currentDisplay)
+      this.setState({ 
+        currentDisplay: sqRoot,
+        currentProblem: "",
+      })
+    }
+  }
 
   render(){
     const { currentDisplay } = this.state
@@ -97,6 +116,7 @@ class App extends React.Component {
                     clearProblem={ () => {this.clearProblem()}}
                     mathOperatorClick={ (e) => {this.mathOperatorClick(e)}}
                     equalClick={() => {this.equalClick()}}
+                    squareRootClick={() => {this.squareRootClick()}}
         />
         </div>
       </div>
