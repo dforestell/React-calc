@@ -2,29 +2,29 @@ import React from 'react';
 
 class CalcKeys extends React.Component{
     render(){
-        const { numClick, backspaceClick, clearProblem, mathOperatorClick, equalClick, squareRootClick} = this.props
+        const { numClick, backspaceClick, clearProblem, mathOperatorClick, equalClick, squareRootClick, activeMath} = this.props
         return(
             <div className="key-container">
-                <div className="calc-key" onClick={() => {clearProblem()}}>C</div>
-                <div className="calc-key" onClick={() => {backspaceClick()}}>CE</div>
-                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>%</div>
-                <div className="calc-key" onClick={() => {squareRootClick()} }>√</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>1</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>2</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>3</div>
-                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>+</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>4</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>5</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>6</div>
-                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>-</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>7</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>8</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>9</div>
-                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>*</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>.</div>
-                <div className="calc-key" onClick={(e) => {numClick(e)}}>0</div>
-                <div className="calc-key" onClick={ () => {equalClick()}}>=</div>
-                <div className="calc-key" onClick={ (e) => {mathOperatorClick(e)}}>/</div>
+                <button className="calc-key" onClick={() => {clearProblem()}}>C</button>
+                <button className="calc-key" onClick={() => {backspaceClick()}}>CE</button>
+                <button className={activeMath === "%" ? "active calc-key" : "calc-key"} onClick={ (e) => {mathOperatorClick(e)}}>%</button>
+                <button className="calc-key" onClick={() => {squareRootClick()} }>√</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>1</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>2</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>3</button>
+                <button className={activeMath === "+" ? "active calc-key" : "calc-key"} onClick={ (e) => {mathOperatorClick(e)}}>+</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>4</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>5</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>6</button>
+                <button className={activeMath === "-" ? "active calc-key" : "calc-key"} onClick={ (e) => {mathOperatorClick(e)}}>-</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>7</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>8</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>9</button>
+                <button className={activeMath === "*" ? "active calc-key" : "calc-key"} onClick={ (e) => {mathOperatorClick(e)}}>*</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>.</button>
+                <button className="calc-key" onClick={(e) => {numClick(e)}}>0</button>
+                <button className="calc-key" onClick={ () => {equalClick()}}>=</button>
+                <button className={activeMath === "/" ? "active calc-key" : "calc-key"} onClick={ (e) => {mathOperatorClick(e)}}>/</button>
             </div>
         )
     }

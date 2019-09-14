@@ -11,7 +11,6 @@ body{
 
 .calculator-container{
   display: inline-block;
-  width: 66%;
   border: .25em solid black;
   margin-top: 2em;
   margin-bottom: 2em;
@@ -23,7 +22,7 @@ body{
   padding-right: .5em;
   padding-top: 1em;
   height: 2em;
-  font-size: 2.5em;
+  font-size: 2em;
   background-color: grey;
   overflow: hidden;
 }
@@ -34,37 +33,37 @@ body{
   background-color: black;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: .25em;
   border-top: .25em solid black;
 }
 
+.active.calc-key{
+  opacity: .66;
+}
 .calc-key{
   font-size: 2em;
   background-color: darkred;
-  vertical-align: center;
   padding: 1em;
   text-align: center;
 }
 
-@media(max-width: 900px){
-  .calc-key{ font-size: 1.5em; }
-}
-@media (max-width: 720px){
-  .calc-key{ font-size: 1em; }
-  .key-container{ 
-    border-top: 2px solid black;
-    grid-gap: .125em;
-   }
-   .display{
-    padding-top: .5em;
-    padding-right: .5em;
-    height: 1em;
-    font-size: 2.5em;
-    background-color: grey;
+@media(max-width: 600px){
+  .calculator-container{
+    margin-top: 2em;
   }
-   .calculator-container{ border: .125em solid black; }
-}
-
-@media (max-width: 500px){
-  .calc-key{ padding: 1em; }
+  
+  .display{
+    padding-right: .4em;
+    padding-top: .75em;
+    height: 1.5em;
+    font-size: 1.3em;
+  }
+  
+  
+  .active.calc-key{
+    opacity: .66;
+  }
+  .calc-key{
+    font-size: 1.5em;
+    padding: .66em;
+  }
 }
