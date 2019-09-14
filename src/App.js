@@ -97,22 +97,20 @@ class App extends React.Component {
       const answer = eval(problem)
       const sqRoot = Math.sqrt(answer)
       this.setState({ 
-        currentDisplay: sqRoot,
+        currentDisplay: `${sqRoot}`,
         currentProblem: "",
       })
     } else{
       const sqRoot = Math.sqrt(currentDisplay)
       this.setState({ 
-        currentDisplay: sqRoot,
+        currentDisplay: `${sqRoot}`,
         currentProblem: "",
       })
     }
   }
-
   sliceDisplay(display){
-    return display.slice(0,16)
+   return  display.slice(0,18)
   }
-
 
   render(){
     const { currentDisplay, activeMath } = this.state
