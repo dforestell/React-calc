@@ -10,7 +10,7 @@ class App extends React.Component {
     this.state = {
       currentDisplay: "",
       currentProblem: "",
-      shouldAppendDisplay: true,
+      shouldAppendDisplay: false,
       activeMath: "",
     }
   }
@@ -41,7 +41,7 @@ class App extends React.Component {
     this.setState({
       currentDisplay: "",
       currentProblem: "",
-      shouldAppendDisplay: true,
+      shouldAppendDisplay: false,
       activeMath: ""
     })
   }
@@ -64,7 +64,16 @@ class App extends React.Component {
       }
     }
   }
-
+  
+  minusClick(e){
+    const { shouldAppendDisplay } = this.state
+    if (shouldAppendDisplay){
+      this.mathOperatorClick(e)
+    }else {
+      this.numClick(e)
+    }
+    console.log(e)
+  }
   
   completeMath(operator){
    const {currentDisplay, currentProblem} = this.state 
@@ -126,6 +135,7 @@ class App extends React.Component {
                     equalClick={() => {this.equalClick()}}
                     squareRootClick={() => {this.squareRootClick()}}
                     activeMath={activeMath}
+                    minusClick={(e) => {this.minusClick(e)}}
         />
         </div>
       </div>
