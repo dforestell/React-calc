@@ -30,7 +30,7 @@ class App extends React.Component {
   }
 
   backspaceClick(){
-    let back = this.state.currentDisplay.slice(0, -1)
+    const back = this.state.currentDisplay.slice(0, -1)
     this.setState({
       currentDisplay: back,
     })
@@ -48,20 +48,18 @@ class App extends React.Component {
 
   mathOperatorClick(e){
     let {currentDisplay, currentProblem, activeMath} = this.state
-    if  (activeMath === ""){
-      if (currentDisplay !==  "" ){
-        let operator = e.target.innerHTML
-          if (currentProblem === "" && currentDisplay){
-            let addToProblem = currentProblem.concat(currentDisplay, operator);
-            this.setState({
-              activeMath: `${operator}`,
-              currentProblem: addToProblem,
-              shouldAppendDisplay: false,
-            });
-          } else{
-            this.completeMath(operator)
-          }
-      }
+    if  (activeMath === "" && currentDisplay !==  "" && currentDisplay[currentDisplay.length - 1] !== "-"){
+      let operator = e.target.innerHTML
+        if (currentProblem === "" ){
+          let addToProblem = currentProblem.concat(currentDisplay, operator);
+          this.setState({
+            activeMath: `${operator}`,
+            currentProblem: addToProblem,
+            shouldAppendDisplay: false,
+          });
+        } else{
+          this.completeMath(operator)
+        }
     }
   }
   
