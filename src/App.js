@@ -25,7 +25,7 @@ class App extends React.Component {
           currentDisplay: `${e.target.innerHTML}`,
           shouldAppendDisplay: true,
           activeMath: "",
-      })
+        })
       }
   }
 
@@ -64,13 +64,12 @@ class App extends React.Component {
   }
   
   minusClick(e){
-    const { shouldAppendDisplay } = this.state
-    if (shouldAppendDisplay){
+    const { shouldAppendDisplay, currentDisplay, currentProblem } = this.state
+    if (shouldAppendDisplay || currentDisplay !== "" && currentProblem === "" ){
       this.mathOperatorClick(e)
-    }else {
+    } else {
       this.numClick(e)
     }
-    console.log(e)
   }
   
   completeMath(operator){
